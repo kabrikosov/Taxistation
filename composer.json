@@ -1,0 +1,22 @@
+{
+    "name": "kelogub/taxistation",
+    "type": "project",
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kelogub\\Taxistation\\": "src/",
+            "Kelogub\\Taxistation\\Controller\\": "src/Controller"
+        }
+    },
+    "authors": [
+        {
+            "name": "kelogub",
+            "email": "kobelogub@gmail.com"
+        }
+    ]
+}
