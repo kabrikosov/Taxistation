@@ -8,7 +8,6 @@ use Kelogub\Taxistation\Factory\TaxiDriverFactory;
 use Kelogub\Taxistation\Shift\TaxiShift;
 
 require "vendor/autoload.php";
-
 $json = json_decode($_POST['json'], true);
 $cars = [];
 $drivers = [];
@@ -16,13 +15,13 @@ $places = $json['park']['places'];
 $names = ['Пётр', 'Василий', "Геннадий", "Ибрагим", "Анастасия", "Ирина", "Виталий", "Иван", "София"];
 foreach($json['drivers'] as $key => $value){
     $drivers[] = match ($value['type']){
-        'default'=> TaxiDriverFactory::createDefDriver($names[array_rand($names)]),
-        'professional'=> TaxiDriverFactory::createProDriver($names[array_rand($names)])
+        'professional'=> TaxiDriverFactory::createProDriver($names[array_rand($names)]),
+        default => TaxiDriverFactory::createDefDriver($names[array_rand($names)])
     };
 }
 foreach($json['cars'] as $data){
     $cars[] = match($data['brand']){
-        'Homba'=> TaxiCarFactory::createHomba($data['km']),
+        default => TaxiCarFactory::createHomba($data['km']),
         'Luda'=> TaxiCarFactory::createLuda($data['km']),
         'Hendai'=>TaxiCarFactory::createHendai($data['km'])
     };
