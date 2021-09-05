@@ -1,6 +1,7 @@
 <?php
 /**
  * @var int $i
+ * @var int $minus
  * @var \Kelogub\Taxistation\Shift\TaxiShift $shift
  * @var \Kelogub\Taxistation\Car\TaxiCar[] $cars
  */
@@ -8,7 +9,7 @@
 <div class="TaxiShift">
     <div>Смена <?= $i ?>:</div>
     <div class="summary">
-        <div class="drovenKm">Километраж: <?= $shift->getDrovenKm() ?>;</div>
+        <div class="drovenKm">Километраж: <?= $shift->getDrovenKm() ?></div>
         <div class="usedOil">Расход топлива: <?= $shift->getUsedOil() ?> л.</div>
     </div>
     <hr/>
@@ -22,7 +23,7 @@
                     <?php foreach ($driverShift->getUsedCars() as $key1 => $usedCar) { ?>
 
                         <div class="car <?= array_key_last($driverShift->getUsedCars()) == $key1 && !$usedCar->isOnRepair() ? "" : "red" ?>">
-                            <?= $usedCar . " " . (spl_object_id($usedCar) - 1) ?>
+                            <?= $usedCar . " " . (spl_object_id($usedCar) - $minus) ?>
                         </div>
                     <?php } ?>
                 </div>

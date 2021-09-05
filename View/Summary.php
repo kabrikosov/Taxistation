@@ -4,6 +4,7 @@
  * @var array $summary
  * @var TaxiShift $shift
  * @var TaxiCar $brokenCar
+ * @var int $minus
  */
 
 use Kelogub\Taxistation\Car\TaxiCar;
@@ -19,7 +20,7 @@ use Kelogub\Taxistation\Shift\TaxiShift;
         <?php foreach ($shift->getBrokenCars() as $key => $brokenCar) { ?>
             <div class="carReport">
                 <div class="carName">
-                    <?= $brokenCar['car'] . " " . (spl_object_id($brokenCar['car']) - 1) ?>
+                    <?= $brokenCar['car'] . " " . (spl_object_id($brokenCar['car']) - $minus) ?>
                 </div>
                 <div class="<?= $brokenCar['car']->isOnRepair() ? "redFont" : "greenFont" ?>">
                     <?= $brokenCar['car']->isOnRepair() ? "Отсалось ремонтироваться дней: {$brokenCar['car']->getRepairingDays()}" : "Готова к поездке" ?>
@@ -41,7 +42,7 @@ use Kelogub\Taxistation\Shift\TaxiShift;
                     <div class="usedCars">
                         <?php foreach ($driver->getAllUsedCars() as $key1 => $usedCar) { ?>
                             <div class="car <?= !$usedCar->isOnRepair() ? "" : "red" ?>">
-                                <?= $usedCar . " " . (spl_object_id($usedCar) - 1) ?>
+                                <?= $usedCar . " " . (spl_object_id($usedCar) - $minus) ?>
                             </div>
                         <?php } ?>
                     </div>
