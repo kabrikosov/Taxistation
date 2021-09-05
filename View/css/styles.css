@@ -20,8 +20,8 @@
     margin: 1em;
 }
 hr{
-    width: 100%;
-    margin: 0.5em;
+    width: 99.8%;
+    margin: 0.5em 0 0.5em 0;
 }
 .summary{
     width: 100%;
@@ -62,4 +62,62 @@ hr{
     padding: 0.2em;
     border: solid 0.1em #464646;
     border-radius: 1em;
+}
+.driversReport{
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.1em #464646;
+    border-radius: 1em;
+    margin: 1em;
+}
+.summaryReport{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.1em #464646;
+    border-radius: 1em;
+    margin: 1em;
+}
+.summaryReport>*{
+    margin: 0.2em;
+}
+.carsReport{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    border: solid 0.1em #464646;
+    border-radius: 1em;
+    margin: 1em;
+    width: auto;
+}
+.reportName{
+    align-self: center;
+    margin-top: 0.7em;
+}
+.carReport{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.2em;
+}
+.carReport:last-child{
+    margin-bottom: 0.7em;
+}
+.carReport .car{
+    justify-self: flex-start;
+}
+.greenFont{
+    color: darkgreen;
+}
+.redFont{
+    color: darkred;
+}
+*{
+    white-space: nowrap;
 }

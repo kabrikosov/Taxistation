@@ -10,7 +10,8 @@
     "autoload": {
         "psr-4": {
             "Kelogub\\Taxistation\\": "src/",
-            "Kelogub\\Taxistation\\Controller\\": "src/Controller"
+            "Kelogub\\Taxistation\\Car\\": "src/Car",
+            "Kelogub\\Taxistation\\Observers\\": "src/Observers"
         }
     },
     "authors": [

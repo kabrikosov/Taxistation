@@ -10,18 +10,25 @@ abstract class TaxiDriver extends Driver
 {
     protected ?TaxiCar $car;
     protected Observable $observer;
+    protected Observable $allCarsObserver;
+    protected int $drovenKm;
+    protected float $usedOil;
 
     public function __construct(string $name)
     {
         parent::__construct($name);
         $this->car = null;
         $this->observer = new UsedCarsObserver();
+        $this->allCarsObserver = new UsedCarsObserver();
+        $this->usedOil = 0;
+        $this->drovenKm = 0;
     }
 
     public function bindCar(TaxiCar $car)
     {
         $this->car = $car;
         $this->observer->addCar($car);
+        $this->allCarsObserver->addCar($car);
     }
 
     public function getOrderFactor(): float
@@ -42,6 +49,8 @@ abstract class TaxiDriver extends Driver
         if (!isset($this->car)) {
             throw new \Exception("Водителю {$this->name} не назначена машина!");
         }
+        $this->usedOil += 0.07 * $this->getOilRateFactor();
+        $this->drovenKm += 7;
         return $this->car->ride();
     }
 
@@ -71,5 +80,17 @@ abstract class TaxiDriver extends Driver
 
     public function getUsedCars(): array{
         return $this->observer->getUsedCars();
+    }
+
+    public function getDrovenKm(): int{
+        return $this->drovenKm;
+    }
+
+    public function getUsedOil(): float{
+        return $this->usedOil;
+    }
+
+    public function getAllUsedCars(): array{
+        return $this->allCarsObserver->getUsedCars();
     }
 }

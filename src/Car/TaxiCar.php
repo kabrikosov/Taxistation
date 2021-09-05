@@ -45,4 +45,8 @@ class TaxiCar extends Car
             --$this->repairingDays;
         }
     }
+
+    public function getRepairingDays(): int{
+        return $this->repairingDays;
+    }
 }

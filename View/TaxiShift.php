@@ -1,12 +1,16 @@
 <?php
 /**
  * @var int $i
- * @var \Kelogub\Taxistation\Controller\ShiftsController $shift
+ * @var \Kelogub\Taxistation\Shift\TaxiShift $shift
  * @var \Kelogub\Taxistation\Car\TaxiCar[] $cars
  */
 ?>
 <div class="TaxiShift">
     <div>Смена <?= $i ?>:</div>
+    <div class="summary">
+        <div class="drovenKm">Километраж: <?= $shift->getDrovenKm() ?>;</div>
+        <div class="usedOil">Расход топлива: <?= $shift->getUsedOil() ?> л.</div>
+    </div>
     <hr/>
     <div class="drivers">
         <?php foreach ($shift->getDriverShifts() as $key => $driverShift) { ?>

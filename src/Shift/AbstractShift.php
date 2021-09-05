@@ -2,6 +2,8 @@
 
 namespace Kelogub\Taxistation\Shift;
 
+use Kelogub\Taxistation\Observers\Observable;
+
 abstract class AbstractShift
 {
     protected float $usedOil;

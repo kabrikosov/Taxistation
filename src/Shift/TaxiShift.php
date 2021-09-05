@@ -1,11 +1,11 @@
 <?php
 
-namespace Kelogub\Taxistation\Controller;
+namespace Kelogub\Taxistation\Shift;
 
 use Kelogub\Taxistation\Car\TaxiCar;
-use Kelogub\Taxistation\Shift\DriverShift;
+use Kelogub\Taxistation\Observers\CrashedCarsObserver;
 
-class ShiftsController
+class TaxiShift extends AbstractShift
 {
     private array $drivers;
     private array $cars;
@@ -20,15 +20,17 @@ class ShiftsController
      */
     public function __construct(array $drivers, array $cars)
     {
+        parent::__construct();
         $this->drivers = $drivers;
         $this->cars = $cars;
         $this->emptyCars = $cars;
         $this->driverShifts = [];
         $this->crashedCars = [];
+        $this->observer = new CrashedCarsObserver();
         $this->createDriverShifts();
     }
 
-    public function runShifts()
+    public function runShift()
     {
         $this->checkCrashedCars();
         foreach ($this->driverShifts as $driverShift) {
@@ -43,11 +45,15 @@ class ShiftsController
                 if ($driverShift->hasCar()) {
                     $crash = $driverShift->runShift();
                     if ($crash) {
-                        $this->crashedCars[] = $driverShift->unbindCar();
+                        $crashedCar = $driverShift->unbindCar();
+                        $this->crashedCars[] = $crashedCar;
+                        $this->observer->addBrokenCar($crashedCar);
                         $this->rebind($driverShift);
                     }
                 }
             }
+            $this->usedOil += $driverShift->getUsedOil();
+            $this->drovenKm += $driverShift->getDrovenKm();
         }
     }
 
@@ -100,11 +106,16 @@ class ShiftsController
     }
 
     public function nextDay(){
+        parent::nextDay();
         foreach($this->driverShifts as $driverShift){
             $driverShift->nextDay();
         }
         foreach ($this->crashedCars as $car){
             $car->nextDay();
         }
+    }
+
+    public function getBrokenCars(): array{
+        return $this->observer->getBrokenCars();
     }
 }

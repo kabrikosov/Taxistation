@@ -21,7 +21,7 @@ class UsedCarsObserver extends Observable
     }
 
     public function getUsedCars(): array{
-        return $this->usedCars;
+        return array_unique($this->usedCars, 0);
     }
 
 }

@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '8f178e6dffbc6ffaec346ae0f27aeceeba2c2f1d',
         'name' => 'kelogub/taxistation',
         'dev' => true,
     ),
     'versions' => array(
         'kelogub/taxistation' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '8f178e6dffbc6ffaec346ae0f27aeceeba2c2f1d',
             'dev_requirement' => false,
         ),
     ),
