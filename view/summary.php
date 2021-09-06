@@ -17,7 +17,8 @@ use Kelogub\Taxistation\Shift\TaxiShift;
     <div class="carsReport">
         <div class="reportName"><b>Битые за смену машины:</b></div>
         <hr style="background: #000; height: 4px; border: none">
-        <?php $brokenCars = $shift->getBrokenCars(); usort($brokenCars, function ($a, $b){
+        <?php $brokenCars = $shift->getBrokenCars();
+        usort($brokenCars, function ($a, $b){
             return spl_object_id($a['car']) - spl_object_id($b['car']);
         });?>
         <?php foreach ($brokenCars as $key => $brokenCar) { ?>
