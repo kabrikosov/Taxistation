@@ -8,15 +8,35 @@ use Kelogub\Taxistation\Factory\TaxiDriverFactory;
 use Kelogub\Taxistation\Shift\TaxiShift;
 
 require "vendor/autoload.php";
-$json = json_decode($_POST['json'], true);
+$defaultJSON = <<<JSON
+{
+  "park": {"places": 30},
+  "drivers": [
+    {"type": "professional", "name": "PRO Anastasia"},
+    {"type": "professional", "name": "PRO Waldemar"},
+    {"type": "default", "name": "Peter"},
+    {"type": "default", "name": "August"}
+  ],
+  "cars": [
+    {"km": 13951, "brand": "Homba"},
+    {"km": 20512, "brand": "Luda"},
+    {"km": 10300, "brand": "Hendai"},
+    {"km": 1546, "brand": "Homba"},
+    {"km": 11254, "brand": "Luda"},
+    {"km": 2356, "brand": "Hendai"}
+  ]
+}
+JSON;
+
+$json = json_decode($_POST['json'] , true)?: json_decode($defaultJSON, true);
 $cars = [];
 $drivers = [];
 $places = $json['park']['places'];
 $names = ['Пётр', 'Василий', "Геннадий", "Ибрагим", "Анастасия", "Ирина", "Виталий", "Иван", "София"];
-foreach($json['drivers'] as $key => $value){
+foreach($json['drivers'] as $value){
     $drivers[] = match ($value['type']){
-        'professional'=> TaxiDriverFactory::createProDriver($names[array_rand($names)]),
-        default => TaxiDriverFactory::createDefDriver($names[array_rand($names)])
+        'professional'=> TaxiDriverFactory::createProDriver($value['name'] ?? $names[array_rand($names)]),
+        default => TaxiDriverFactory::createDefDriver($value['name'] ?? $names[array_rand($names)])
     };
 }
 foreach($json['cars'] as $data){
@@ -26,15 +46,15 @@ foreach($json['cars'] as $data){
         'Hendai'=>TaxiCarFactory::createHendai($data['km'])
     };
 }
-include "View/header.php";
+include "view/header.php";
 $minus = spl_object_id($cars[0])-1;
 $shift = new TaxiShift($drivers, $cars);
 $summary = ['oil'=>0, 'km'=>0];
 for ($i = 1; $i<11; $i++) {
     $shift->runShift();
-    include "View/TaxiShift.php";
+    include "view/taxiShift.php";
     $summary['oil']+=$shift->getUsedOil();
     $summary["km"]+=$shift->getDrovenKm();
     $shift->nextDay();
 }
-include "View/Summary.php";
+include "view/summary.php";

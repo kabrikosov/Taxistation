@@ -13,7 +13,7 @@
     min-width: 300px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     border: solid 0.1em #464646;
     border-radius: 1em;
@@ -120,4 +120,7 @@ hr{
 }
 *{
     white-space: nowrap;
+}
+b{
+    font-weight: 500;
 }

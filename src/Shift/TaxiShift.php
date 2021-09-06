@@ -33,6 +33,7 @@ class TaxiShift extends AbstractShift
     public function runShift()
     {
         $this->checkCrashedCars();
+        shuffle($this->driverShifts);
         foreach ($this->driverShifts as $driverShift) {
             /**
              * @var DriverShift $driverShift
@@ -40,7 +41,10 @@ class TaxiShift extends AbstractShift
             if (!$driverShift->hasCar()) {
                 $this->rebind($driverShift);
             }
-            $iter = 10 * $driverShift->getOrderRatoFactor();
+        }
+        shuffle($this->driverShifts);
+        foreach ($this->driverShifts as $driverShift){
+            $iter = 10 * $driverShift->getOrderRateFactor();
             for ($i = 1; $i <= $iter; $i++) {
                 if ($driverShift->hasCar()) {
                     $crash = $driverShift->runShift();

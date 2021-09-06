@@ -15,8 +15,8 @@ use Kelogub\Taxistation\Shift\TaxiShift;
 </section>
 <section>
     <div class="carsReport">
-        <div class="reportName">Битые за смену машины:</div>
-        <hr/>
+        <div class="reportName"><b>Битые за смену машины:</b></div>
+        <hr style="background: #000; height: 4px; border: none">
         <?php foreach ($shift->getBrokenCars() as $key => $brokenCar) { ?>
             <div class="carReport">
                 <div class="carName">
@@ -32,8 +32,8 @@ use Kelogub\Taxistation\Shift\TaxiShift;
     </div>
     <section class="summary">
         <div class="driversReport">
-            <div class="reportName">Отчет по водителям:</div>
-            <hr/>
+            <div class="reportName"><b>Отчет по водителям:</b></div>
+            <hr style="background: #000; height: 4px; border: none">
             <?php foreach ($drivers as $key => $driver) { ?>
                 <div class="driver">
                     <div class="driverName"><?= $driver->getName() ?>:</div>
@@ -51,8 +51,8 @@ use Kelogub\Taxistation\Shift\TaxiShift;
             <?php } ?>
         </div>
         <div class="summaryReport">
-            <div class="reportName">Отчет по всем сменам:</div>
-            <hr/>
+            <div class="reportName"><b>Отчет по всем сменам:</b></div>
+            <hr style="background: #000; height: 4px; border: none">
             <div class="drovenKm">Километраж: <?= $summary['km'] ?></div>
             <hr/>
             <div class="usedOil">Расход топлива: <?= $summary['oil'] ?> л.</div>

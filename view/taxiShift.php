@@ -7,12 +7,12 @@
  */
 ?>
 <div class="TaxiShift">
-    <div>Смена <?= $i ?>:</div>
+    <div><b>Смена <?= $i ?>:</b></div>
     <div class="summary">
-        <div class="drovenKm">Километраж: <?= $shift->getDrovenKm() ?></div>
-        <div class="usedOil">Расход топлива: <?= $shift->getUsedOil() ?> л.</div>
+        <div class="drovenKm"><b>Километраж: <?= $shift->getDrovenKm() ?></b></div>
+        <div class="usedOil"><b>Расход топлива: <?= $shift->getUsedOil() ?> л.</b></div>
     </div>
-    <hr/>
+    <hr style="background: #000; height: 4px; border: none">
     <div class="drivers">
         <?php foreach ($shift->getDriverShifts() as $key => $driverShift) { ?>
             <div class="driver">

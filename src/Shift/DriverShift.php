@@ -61,7 +61,7 @@ class DriverShift extends AbstractShift
     {
         return $this->driver->hasCar() && $this->driver->getCar()->isOnRepair();
     }
-    #[Pure] public function getOrderRatoFactor(): float
+    #[Pure] public function getOrderRateFactor(): float
     {
         return $this->driver->getOrderFactor();
     }
