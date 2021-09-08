@@ -30,6 +30,7 @@ $defaultJSON = <<<JSON
 JSON;
 
 $json = json_decode($_POST['json'] , true)?: json_decode($defaultJSON, true);
+$days = $_POST['days'];
 $cars = [];
 $drivers = [];
 $places = $json['park']['places'];
@@ -55,7 +56,7 @@ $getCarId = function (TaxiCar $car) use ($minus): int
 };
 $shift = new TaxiShift($drivers, $cars);
 $summary = ['oil'=>0, 'km'=>0];
-for ($i = 1; $i<11; $i++) {
+for ($i = 1; $i<=$days; $i++) {
     $shift->runShift();
     include "view/taxiShift.php";
     $summary['oil']+=$shift->getUsedOil();
