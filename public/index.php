@@ -1,5 +1,5 @@
 <?php
-include "view/header.php"
+include "../view/header.php"
 ?>
 </section>
 <section style="display: flex; flex-direction: column; justify-content: center; align-items: center">

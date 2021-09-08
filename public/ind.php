@@ -8,7 +8,7 @@ use Kelogub\Taxistation\Factory\TaxiCarFactory;
 use Kelogub\Taxistation\Factory\TaxiDriverFactory;
 use Kelogub\Taxistation\Shift\TaxiShift;
 
-require "vendor/autoload.php";
+require "../vendor/autoload.php";
 $defaultJSON = <<<JSON
 {
   "park": {"places": 30},
@@ -48,7 +48,7 @@ foreach($json['cars'] as $data){
         'Hendai'=>TaxiCarFactory::createHendai($data['km'])
     };
 }
-include "view/header.php";
+include "../view/header.php";
 $minus = spl_object_id($cars[0])-1; //нужен чтобы нормализовать индексы
 $getCarId = function (TaxiCar $car) use ($minus): int
 {
@@ -58,9 +58,9 @@ $shift = new TaxiShift($drivers, $cars);
 $summary = ['oil'=>0, 'km'=>0];
 for ($i = 1; $i<=$days; $i++) {
     $shift->runShift();
-    include "view/taxiShift.php";
+    include "../view/taxiShift.php";
     $summary['oil']+=$shift->getUsedOil();
     $summary["km"]+=$shift->getDrovenKm();
     $shift->nextDay();
 }
-include "view/summary.php";
+include "../view/summary.php";
