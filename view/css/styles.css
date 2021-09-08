@@ -58,6 +58,10 @@ hr{
     background: rgba(155, 14, 23, 0.63);
 }
 .car{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 0.2em;
     border: solid 0.1em #464646;
     border-radius: 1em;

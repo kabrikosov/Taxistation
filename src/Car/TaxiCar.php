@@ -11,11 +11,16 @@ class TaxiCar extends Car
         $this->mileage = $mileage;
         $this->oilRate = 10;
         $this->repairingDays = 0;
+        $this->rides = 0;
     }
 
     public function ride(): bool
     {
-        return $this->isOnCrash();
+        $status = $this->isOnCrash();
+        if (!$status){
+            $this->rides++;
+        }
+        return $status;
     }
 
     public function isOnRepair(): bool
@@ -55,6 +60,11 @@ class TaxiCar extends Car
         if ($this->repairingDays>0) {
             --$this->repairingDays;
         }
+        $this->rides = 0;
+    }
+
+    public function getRides(): int {
+        return $this->rides;
     }
 
     public function getRepairingDays(): int{
