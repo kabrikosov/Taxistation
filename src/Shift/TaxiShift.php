@@ -106,7 +106,15 @@ class TaxiShift extends AbstractShift
         }
     }
     public function getDriverShifts(): array{
-        return $this->driverShifts;
+        $return = $this->driverShifts;
+        usort($return, function ($a, $b){
+            /**
+             * @var DriverShift $a
+             * @var DriverShift $b
+             */
+            return ($b->getDrovenKm() + count($b->getUsedCars())) - ($a->getDrovenKm() - count($b->getUsedCars()));
+        });
+        return $return;
     }
 
     public function nextDay(){

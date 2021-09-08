@@ -5,6 +5,7 @@
  * @var TaxiShift $shift
  * @var TaxiCar $brokenCar
  * @var int $minus
+ * @var callable $getCarId
  */
 
 use Kelogub\Taxistation\Car\TaxiCar;
@@ -21,38 +22,38 @@ use Kelogub\Taxistation\Shift\TaxiShift;
         usort($brokenCars, function ($a, $b){
             return spl_object_id($a['car']) - spl_object_id($b['car']);
         });?>
-        <?php foreach ($brokenCars as $key => $brokenCar) { ?>
+        <?php foreach ($brokenCars as $brokenCarId => $brokenCar):?>
             <div class="carReport">
                 <div class="carName">
-                    <?= $brokenCar['car'] . " " . (spl_object_id($brokenCar['car']) - $minus) ?>
+                    <?= $brokenCar['car'] . " " . $getCarId($brokenCar['car'])  ?>
                 </div>
                 <div class="<?= $brokenCar['car']->isOnRepair() ? "redFont" : "greenFont" ?>">
                     <?= $brokenCar['car']->isOnRepair() ? "Отсалось ремонтироваться дней: {$brokenCar['car']->getRepairingDays()}" : "Готова к поездке" ?>
                 </div>
                 <div>Побита раз: <?= $brokenCar['crashes'] ?></div>
             </div>
-            <?= ($key === array_key_last($shift->getBrokenCars()) ? "" : "<hr/>") ?>
-        <?php } ?>
+            <?= ($brokenCarId === array_key_last($shift->getBrokenCars()) ? "" : "<hr/>") ?>
+        <?php endforeach; ?>
     </div>
     <section class="summary">
         <div class="driversReport">
             <div class="reportName"><b>Отчет по водителям:</b></div>
             <hr style="background: #000; height: 4px; border: none">
-            <?php foreach ($drivers as $key => $driver) { ?>
+            <?php foreach ($drivers as $driverKey => $driver) : ?>
                 <div class="driver">
                     <div class="driverName"><?= $driver->getName() ?>:</div>
                     <div class="drovenKm">Километраж: <?= $driver->getDrovenKm() ?></div>
                     <div class="usedOil">Расход топлива: <?= $driver->getUsedOil() ?> л.</div>
                     <div class="usedCars">
-                        <?php foreach ($driver->getAllUsedCars() as $key1 => $usedCar) { ?>
+                        <?php foreach ($driver->getAllUsedCars() as $usedCar) : ?>
                             <div class="car <?= !$usedCar->isOnRepair() ? "" : "red" ?>">
-                                <?= $usedCar . " " . (spl_object_id($usedCar) - $minus) ?>
+                                <?= $usedCar . " " . $getCarId($usedCar) ?>
                             </div>
-                        <?php } ?>
+                        <?php endforeach;?>
                     </div>
                 </div>
-                <?= ($key === array_key_last($drivers) ? "" : "<hr/>") ?>
-            <?php } ?>
+                <?= ($driverKey === array_key_last($drivers) ? "" : "<hr/>") ?>
+            <?php endforeach; ?>
         </div>
         <div class="summaryReport">
             <div class="reportName"><b>Отчет по всем сменам:</b></div>

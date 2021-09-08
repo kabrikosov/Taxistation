@@ -1,6 +1,7 @@
 <?php
 
 use Kelogub\Taxistation\Car\Homba;
+use Kelogub\Taxistation\Car\TaxiCar;
 use Kelogub\Taxistation\Driver\DefDriver;
 use Kelogub\Taxistation\Driver\ProDriver;
 use Kelogub\Taxistation\Factory\TaxiCarFactory;
@@ -47,7 +48,11 @@ foreach($json['cars'] as $data){
     };
 }
 include "view/header.php";
-$minus = spl_object_id($cars[0])-1;
+$minus = spl_object_id($cars[0])-1; //нужен чтобы нормализовать индексы
+$getCarId = function (TaxiCar $car) use ($minus): int
+{
+    return spl_object_id($car) - $minus;
+};
 $shift = new TaxiShift($drivers, $cars);
 $summary = ['oil'=>0, 'km'=>0];
 for ($i = 1; $i<11; $i++) {
