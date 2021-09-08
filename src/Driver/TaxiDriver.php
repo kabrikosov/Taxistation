@@ -14,6 +14,8 @@ abstract class TaxiDriver extends Driver
     protected int $drovenKm;
     protected float $usedOil;
 
+    const AVG_DRIVE_LENGTH = 7;
+
     public function __construct(string $name)
     {
         parent::__construct($name);
@@ -49,8 +51,8 @@ abstract class TaxiDriver extends Driver
         if (!isset($this->car)) {
             throw new \Exception("Водителю {$this->name} не назначена машина!");
         }
-        $this->usedOil += 0.07 * $this->getOilRateFactor();
-        $this->drovenKm += 7;
+        $this->usedOil += self::AVG_DRIVE_LENGTH/100 * $this->getOilRateFactor();
+        $this->drovenKm += self::AVG_DRIVE_LENGTH;
         return $this->car->ride();
     }
 

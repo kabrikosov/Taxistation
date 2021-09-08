@@ -25,13 +25,24 @@ class TaxiCar extends Car
 
     protected function isOnCrash(): bool
     {
-        $chance = rand(1, ceil(1 / $this->calculateCrashChanse() * 100));
-        if ($chance != 1) {
-            $this->mileage += 7;
-        } else {
-            $this->repairingDays = 3;
+        try {
+            $chance = random_int(0, 100);
+            if ($chance >= $this->calculateCrashChanse()) {
+                $this->mileage += 7;
+                return false;
+            } else {
+                $this->repairingDays = 3;
+                return true;
+            }
+        } catch (\Exception) { //если бросило исключение, вычисляем по старой схеме
+            $chance = rand(1, ceil(1 / $this->calculateCrashChanse() * 100));
+            if ($chance != 1) {
+                $this->mileage += 7;
+            } else {
+                $this->repairingDays = 3;
+            }
+            return $chance == 1;
         }
-        return $chance == 1;
     }
 
     protected function calculateCrashChanse(): float

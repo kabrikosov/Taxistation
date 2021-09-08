@@ -6,11 +6,10 @@ abstract class Car
 {
     protected int $mileage;
     protected int $oilRate;
+    protected string $brand;
 
     public function __toString(): string
     {
-        $fullClassName = static::class;
-        $className = preg_split('/\W/', $fullClassName);
-        return array_pop($className);
+        return $this->brand;
     }
 }
